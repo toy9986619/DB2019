@@ -11,12 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    // return view('welcome');
-    return view('index');
-});
+// Route::get('/', function () {
+//     // return view('welcome');
+//     return view('index');
+// });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Vue SPA
+Route::any('/{path}', 'SinglePageController@index')->where(['path' => '.*']);
 
