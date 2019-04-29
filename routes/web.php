@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 //     return view('index');
 // });
 
-// Auth::routes();
+Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
