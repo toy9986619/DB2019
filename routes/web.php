@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,9 +19,20 @@
 //     return view('index');
 // });
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/check_login', function(Request $request) {
+    $res = Auth::check();
+
+    if($res){
+        $data = $request->user();
+    }else{
+        $data = 'false';
+    }
+    return $data;
+});
 
 // Vue SPA
 Route::any('/{path}', 'SinglePageController@index')->where(['path' => '.*']);
