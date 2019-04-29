@@ -14,10 +14,11 @@ class CreateTeamMembersTable extends Migration
     public function up()
     {
         Schema::create('team_members', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('team_id')->unsigned()->comment('隊伍編號');
             $table->integer('user_id')->unsigned()->comment('成員編號');
             $table->timestamps();
+
+            $table->primary(['team_id', 'user_id']);
         });
     }
 
