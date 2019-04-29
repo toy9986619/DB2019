@@ -48712,24 +48712,6 @@ var render = function() {
                       ],
                       1
                     )
-                  : _vm._e(),
-                _vm._v(" "),
-                !_vm.userState.isLogin
-                  ? _c(
-                      "li",
-                      { staticClass: "nav-item" },
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "nav-link",
-                            attrs: { to: "/register" }
-                          },
-                          [_vm._v("Register")]
-                        )
-                      ],
-                      1
-                    )
                   : _c("li", { staticClass: "nav-item dropdown" }, [
                       _c(
                         "a",
@@ -48757,6 +48739,7 @@ var render = function() {
                             "a",
                             {
                               staticClass: "dropdown-item",
+                              attrs: { href: "#" },
                               on: {
                                 click: function($event) {
                                   $event.stopPropagation()

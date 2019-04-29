@@ -19,9 +19,9 @@
           <li v-if="!userState.isLogin" class="nav-item">
             <router-link to="/login" class="nav-link">Login</router-link>
           </li>
-          <li v-if="!userState.isLogin" class="nav-item">
+          <!-- <li v-if="!userState.isLogin" class="nav-item">
             <router-link to="/register" class="nav-link">Register</router-link>
-          </li>
+          </li> -->
           <li v-else class="nav-item dropdown">
             <a
               href="#"
@@ -32,7 +32,7 @@
               aria-expanded="false"
             >Username</a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" @click.stop.prevent="logout()">Logout</a>
+              <a href="#" class="dropdown-item" @click.stop.prevent="logout()">Logout</a>
             </div>
           </li>
         </ul>
