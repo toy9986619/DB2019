@@ -1,3 +1,5 @@
 <template>
-  <p>Error 404</p>
+  <div class="container">
+    <p>Error 404</p>
+  </div>
 </template>
