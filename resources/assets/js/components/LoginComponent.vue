@@ -10,11 +10,19 @@
                 <label for="email" class="col-lg-4 col-form-label text-lg-right">E-Mail Address</label>
 
                 <div class="col-lg-6">
-                  <input v-model="email" id="email" type="email" name="email" required autofocus>
-                  <!-- @if ($errors->has('email'))
-                  <div class="invalid-feedback">
-                    <strong>{{ $errors->first('email') }}</strong>
-                  </div>@endif-->
+                  <input
+                    v-model="email"
+                    id="email"
+                    class="form-control"
+                    v-bind:class="{ 'is-invalid': isEmailError }"
+                    type="email"
+                    name="email"
+                    required
+                    autofocus
+                  >
+                  <div v-if="errors.email" class="invalid-feedback">
+                    <strong>{{ errors.email[0] }}</strong>
+                  </div>
                 </div>
               </div>
 
@@ -22,11 +30,18 @@
                 <label for="password" class="col-lg-4 col-form-label text-lg-right">Password</label>
 
                 <div class="col-lg-6">
-                  <input v-model="password" id="password" type="password" name="password" required>
-                  <!-- @if ($errors->has('password'))
-                  <div class="invalid-feedback">
-                    <strong>{{ $errors->first('password') }}</strong>
-                  </div>@endif-->
+                  <input
+                    v-model="password"
+                    id="password"
+                    class="form-control"
+                    v-bind:class="{ 'is-invalid': isPasswordError }"
+                    type="password"
+                    name="password"
+                    required
+                  >
+                  <div v-if="errors.password" class="invalid-feedback">
+                    <strong>{{ errors.password[0] }}</strong>
+                  </div>
                 </div>
               </div>
 
@@ -60,13 +75,14 @@
 </template>
 
 <script>
-import { userStore } from '../stores/userStore.js';
+import { userStore } from "../stores/userStore.js";
 
 export default {
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      errors: {}
     };
   },
 
@@ -75,21 +91,33 @@ export default {
       axios
         .post("/login", {
           email: this.email,
-          password: this.password,
+          password: this.password
         })
         .then(res => {
           userStore.login(res.data.user);
-          this.$router.push('/');
+          this.$router.push("/");
         })
         .catch(error => {
-          if(error.code === 422){
-            console.log(error.response);
-          }else {
+          if (error.response.status === 422) {
+            this.errors = error.response.data.errors;
+          } else {
             console.log(error);
           }
+          
+          this.password = "";
         });
     }
   },
+
+  computed: {
+    isEmailError() {
+      return this.errors.email;
+    },
+
+    isPasswordError() {
+      return this.errors.password;
+    }
+  }
 };
 </script>
 

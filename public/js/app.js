@@ -1882,12 +1882,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      errors: {}
     };
   },
   methods: {
@@ -1900,14 +1916,24 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         _stores_userStore_js__WEBPACK_IMPORTED_MODULE_0__["userStore"].login(res.data.user);
 
-        _this.$router.push('/');
+        _this.$router.push("/");
       })["catch"](function (error) {
-        if (error.code === 422) {
-          console.log(error.response);
+        if (error.response.status === 422) {
+          _this.errors = error.response.data.errors;
         } else {
           console.log(error);
         }
+
+        _this.password = "";
       });
+    }
+  },
+  computed: {
+    isEmailError: function isEmailError() {
+      return this.errors.email;
+    },
+    isPasswordError: function isPasswordError() {
+      return this.errors.password;
     }
   }
 });
@@ -48547,6 +48573,8 @@ var render = function() {
                         expression: "email"
                       }
                     ],
+                    staticClass: "form-control",
+                    class: { "is-invalid": _vm.isEmailError },
                     attrs: {
                       id: "email",
                       type: "email",
@@ -48563,7 +48591,13 @@ var render = function() {
                         _vm.email = $event.target.value
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.email
+                    ? _c("div", { staticClass: "invalid-feedback" }, [
+                        _c("strong", [_vm._v(_vm._s(_vm.errors.email[0]))])
+                      ])
+                    : _vm._e()
                 ])
               ]),
               _vm._v(" "),
@@ -48587,6 +48621,8 @@ var render = function() {
                         expression: "password"
                       }
                     ],
+                    staticClass: "form-control",
+                    class: { "is-invalid": _vm.isPasswordError },
                     attrs: {
                       id: "password",
                       type: "password",
@@ -48602,7 +48638,13 @@ var render = function() {
                         _vm.password = $event.target.value
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.password
+                    ? _c("div", { staticClass: "invalid-feedback" }, [
+                        _c("strong", [_vm._v(_vm._s(_vm.errors.password[0]))])
+                      ])
+                    : _vm._e()
                 ])
               ]),
               _vm._v(" "),
