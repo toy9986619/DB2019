@@ -14,14 +14,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::get('/', function () {
-//     // return view('welcome');
-//     return view('index');
-// });
+// Auth::routes();
 
-Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/login', 'Auth\LoginController@login')->name('login');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/check_login', function(Request $request) {
     $res = Auth::check();
