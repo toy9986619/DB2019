@@ -18,7 +18,7 @@ class TeamMember extends Model
      * @return App\Models\Team
      */
     public function Team(){
-        return $this->hasOne('App\Models\Team', 'id', 'team_id');
+        return $this->belongsTo('App\Models\Team', 'team_id', 'id');
     }
 
     /**
