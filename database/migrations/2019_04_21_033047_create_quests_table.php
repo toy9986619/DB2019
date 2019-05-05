@@ -15,8 +15,9 @@ class CreateQuestsTable extends Migration
     {
         Schema::create('quests', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->comment('任務名稱')->unique();
+            $table->string('name')->comment('任務名稱');
             $table->text('description')->comment('任務說明');
+            $table->integer('npc_id')->unsigned()->comment('負責NPC編號');
             $table->timestamps();
         });
     }

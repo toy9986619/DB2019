@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateItemsTable extends Migration
+class CreateQuestRewardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->comment('物品名稱');
-            $table->text('description')->comment('物品說明');
+        Schema::create('quest_rewards', function (Blueprint $table) {
+            $table->integer('quest_id')->unsigned()->comment('任務編號');
+            $table->integer('item_id')->unsigned()->comment('物品編號');
             $table->timestamps();
+
+            $table->primary(['quest_id', 'item_id']);
         });
     }
 
@@ -28,6 +29,6 @@ class CreateItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('quest_rewards');
     }
 }
