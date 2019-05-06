@@ -13,7 +13,7 @@ class Team extends Model
     ];
 
     /**
-     * 取得 隊伍成員 模型
+     * 隊伍成員 關聯
      *
      * @return App\Models\TeamMember
      */
@@ -22,11 +22,29 @@ class Team extends Model
     }
 
     /**
-     * 取得 成員 模型
+     * 隊伍成員 遠層關聯
      *
      * @return App\Models\User
      */
     public function Member() {
         return $this->hasManyThrough('App\Models\User', 'App\Models\TeamMember', 'team_id', 'id', 'id', 'user_id');
+    }
+
+    /**
+     * 持有物品 遠層關聯
+     *
+     * @return App\Models\Item
+     */
+    public function Item() {
+        return $this->hasManyThrough('App\Models\Item', 'App\Models\ItemLog', 'team_id', 'id', 'id', 'item_id');
+    }
+
+    /**
+     * 完成任務 遠層關聯
+     *
+     * @return App\Models\Quest
+     */
+    public function CompletedQuest() {
+        return $this->hasManyThrough('App\Models\Quest', 'App\Models\QuestLog', 'team_id', 'id', 'id', 'quest_id');
     }
 }

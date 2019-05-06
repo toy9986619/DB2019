@@ -13,7 +13,7 @@ class TeamMember extends Model
     ];
 
     /**
-     * 取得 隊伍 模型
+     * 屬於哪個隊伍 關聯
      *
      * @return App\Models\Team
      */
@@ -22,7 +22,7 @@ class TeamMember extends Model
     }
 
     /**
-     * 取得 隊員 模型
+     * 隊員 關聯
      *
      * @return App\Models\User
      */

@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PreQuest extends Model
+class QuestReward extends Model
 {
-    protected $table = 'pre_quests';
+    protected $table = 'quest_rewards';
 
-    protected $fillabel = [
-        'quest_id', 'pre_quest_id'
+    protected $fillabe = [
+        'quest_id', 'item_id'
     ];
 
     /**
@@ -22,11 +22,11 @@ class PreQuest extends Model
     }
 
     /**
-     * 前置任務資訊 關聯
+     * 任務獎勵 關聯
      *
-     * @return App\Models\Quest
+     * @return App\Models\Item
      */
-    function PreQuest() {
-        return $this->hasMany('App\Models\Quest', 'pre_quest_id', 'id');
+    function Reward() {
+        return $this->hasMany('App\Models\Item', 'id', 'item_id');
     }
 }
