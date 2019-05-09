@@ -14,11 +14,10 @@ class CreateNpcsTable extends Migration
     public function up()
     {
         Schema::create('npcs', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id')->unsigned()->comment('使用者編號');
             $table->string('name')->comment('NPC名稱');
             $table->timestamps();
-
-            $table->primary('user_id');
         });
     }
 

@@ -24,6 +24,7 @@ Route::get('/check_login', function(Request $request) {
 
     if($res){
         $data = $request->user();
+        $data['team_id'] = App\Models\TeamMember::where('user_id', '=', $data['id'])->value('team_id');
     }else{
         $data = 'false';
     }

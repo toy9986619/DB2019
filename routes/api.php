@@ -17,7 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/quest/completed-quest', 'QuestController@completedQuestList');
+Route::get('/item/item-list', 'ItemController@itemList');
+
 Route::get('/team/{id}', function(){
     return App\Models\Team::with('Member')->find(1);
 });
-

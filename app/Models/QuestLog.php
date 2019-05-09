@@ -17,4 +17,13 @@ class QuestLog extends Model
     public function Team(){
         return $this->belongsTo('App\Models\Team', 'team_id', 'id');
     }
+
+    /**
+     * 任務關聯
+     *
+     * @return App\Models\Quest
+     */
+    public function Quest(){
+        return $this->hasOne('App\Models\Quest', 'id', 'quest_id');
+    }
 }

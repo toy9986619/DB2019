@@ -17,4 +17,13 @@ class ItemLog extends Model
     public function Team(){
         return $this->belongsTo('App\Models\Team', 'team_id', 'id');
     }
+
+    /**
+     * 物品 關聯
+     *
+     * @return App\Models\Item
+     */
+    public function Item(){
+        return $this->hasOne('App\Models\Item', 'id', 'item_id');
+    }
 }
