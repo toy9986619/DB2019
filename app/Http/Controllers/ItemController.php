@@ -8,9 +8,13 @@ use App\Models\ItemLog;
 
 class ItemController extends Controller
 {
-    public function itemList(Request $request){
+    public function getItemList(Request $request){
         $team_id = $request->input('team_id');
 
-        return ItemLog::with('Item')->where('team_id', '=', $team_id)->get();
+        return ItemLog::with('Item:id,name')->where('team_id', '=', $team_id)->get();
+    }
+
+    public function getItemInfo($itemId){
+        return Item::find($itemId);
     }
 }

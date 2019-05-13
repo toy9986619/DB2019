@@ -16,12 +16,16 @@
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
         <ul class="navbar-nav">
-          <li v-if="!userState.isLogin" class="nav-item">
+          <li class="nav-item">
+            <router-link to="/team" class="nav-link">隊伍資訊</router-link>
+          </li>
+          <li v-if="!isLogin" class="nav-item">
             <router-link to="/login" class="nav-link">Login</router-link>
           </li>
           <!-- <li v-if="!userState.isLogin" class="nav-item">
             <router-link to="/register" class="nav-link">Register</router-link>
-          </li> -->
+          </li>-->
+
           <li v-else class="nav-item dropdown">
             <a
               href="#"
@@ -32,7 +36,9 @@
               aria-expanded="false"
             >Username</a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              <a href="#" class="dropdown-item" @click.stop.prevent="logout()">Logout</a>
+              <router-link to="/quest" class="dropdown-item">任務資訊</router-link>
+              <router-link to="/item" class="dropdown-item">持有物品</router-link>
+              <a href="/#" class="dropdown-item" @click.stop.prevent="logout()">Logout</a>
             </div>
           </li>
         </ul>
@@ -42,13 +48,9 @@
 </template>
 
 <script>
-import { userStore } from "../stores/userStore.js";
-
 export default {
   data() {
-    return {
-      userState: userStore.state
-    };
+    return {};
   },
 
   methods: {
@@ -59,7 +61,7 @@ export default {
           const data = res.data;
 
           if (data) {
-            userStore.login(data);
+            this.$store.commit("login", data);
           }
         })
         .catch(err => {
@@ -75,7 +77,7 @@ export default {
           let token = document.head.querySelector('meta[name="csrf-token"]');
           token.content = res.data.csrf;
 
-          userStore.logout();
+          this.$store.commit("logout");
           this.$router.push("/");
         })
         .catch(err => console.log(err));
@@ -84,6 +86,12 @@ export default {
 
   mounted() {
     this.checkLoginState();
+  },
+
+  computed: {
+    isLogin() {
+      return this.$store.state.isLogin;
+    }
   }
 };
 </script>

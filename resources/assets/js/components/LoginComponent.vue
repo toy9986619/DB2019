@@ -75,7 +75,6 @@
 </template>
 
 <script>
-import { userStore } from "../stores/userStore.js";
 
 export default {
   data() {
@@ -94,7 +93,7 @@ export default {
           password: this.password
         })
         .then(res => {
-          userStore.login(res.data.user);
+          this.$store.commit('login', res.data.user);
           this.$router.push("/");
         })
         .catch(error => {

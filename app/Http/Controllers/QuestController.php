@@ -11,13 +11,36 @@ use App\Models\PreQuest;
 
 class QuestController extends Controller
 {
-    public function questList(){
+    public function getAllQuest(){
         return Quest::all();
     }
 
-    public function completedQuestList(Request $request){
+    public function getCompletedQuest(Request $request){
         $teamId = $request->input('team_id');
 
-        return QuestLog::with('Quest')->where('team_id', '=', $teamId)->get();
+        return QuestLog::with('Quest:id,name')->where('team_id', '=', $teamId)->get();
+    }
+
+    public function getNotCompletedQuest(Request $request){
+        $teamId = $request->input('team_id');
+
+        $allQuest = Quest::all();
+        $completeQuestIdArray = [];
+        $completeQuest = QuestLog::select('quest_id')->where('team_id', '=', $teamId)->get();
+        foreach ($completeQuest as $quest) {
+            $completeQuestIdArray[] = $quest->quest_id;
+        }
+
+        $notCompleteQuest = [];
+        foreach ($allQuest as $quest) {
+            if(!in_array($quest->id, $completeQuestIdArray))
+                $notCompleteQuest[] = $quest;
+        }
+
+        return $notCompleteQuest;
+    }
+
+    public function getQuestInfo($questId){
+        return Quest::find($questId);
     }
 }

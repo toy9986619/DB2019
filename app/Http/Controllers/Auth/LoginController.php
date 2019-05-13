@@ -51,8 +51,13 @@ class LoginController extends Controller
 
         $this->clearLoginAttempts($request);
 
+        $user = $request->user();
+        if($user)
+            $user['team_id'] = \App\Models\TeamMember::where('user_id', '=', $user['id'])
+                ->value('team_id');
+
         return $this->authenticated($request, $this->guard()->user())
-                ?: response()->json(['user' => $request->user()]);
+                ?: response()->json(['user' => $user]);
     }
 
     /**

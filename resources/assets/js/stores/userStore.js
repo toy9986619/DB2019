@@ -1,7 +1,7 @@
 export const userStore = {
   state: {
     isLogin: false,
-    user: ""
+    user: {},
   },
 
   login(user) {
@@ -10,7 +10,7 @@ export const userStore = {
   },
 
   logout() {
-    this.state.user = "";
+    this.state.user = {};
     this.state.isLogin = false;
   },
 };

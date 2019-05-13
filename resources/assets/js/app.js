@@ -7,8 +7,10 @@
 
 require('./bootstrap');
 import VueRouter from 'vue-router';
+import Vuex from 'vuex';
 import routes from './routes';
 import App from './App.vue';
+import { store } from './stores/store';
 
 window.Vue = require('vue');
 
@@ -25,4 +27,4 @@ const router = new VueRouter({
  */
 
 
-const app = new Vue(Vue.util.extend({ router }, App)).$mount('#app');
+const app = new Vue(Vue.util.extend({ router, store }, App)).$mount('#app');
