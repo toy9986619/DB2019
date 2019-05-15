@@ -2157,6 +2157,144 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/QuestReviewComponent.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/QuestReviewComponent.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      npc_id: 0,
+      questList: [],
+      selectedQuestIndex: -1,
+      teamList: [],
+      selectedTeamIndex: -1,
+      reviewResult: ""
+    };
+  },
+  computed: {
+    user_id: function user_id() {
+      return this.$store.state.user.id;
+    },
+    teamLength: function teamLength() {
+      return this.teamList.length;
+    }
+  },
+  watch: {
+    user_id: function user_id(value) {
+      this.getNpcId(value);
+    },
+    selectedQuestIndex: function selectedQuestIndex(value) {
+      this.getQuestReview();
+    },
+    selectedTeamIndex: function selectedTeamIndex(value) {
+      this.getQuestReview();
+    }
+  },
+  methods: {
+    getNpcId: function getNpcId(userId) {
+      var _this = this;
+
+      axios.get("/api/npc/user/".concat(userId)).then(function (res) {
+        _this.npc_id = res.data.id;
+
+        _this.getNpcQuestList(_this.npc_id);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getNpcQuestList: function getNpcQuestList(npcId) {
+      var _this2 = this;
+
+      axios.get("/api/quest/npc/".concat(npcId)).then(function (res) {
+        _this2.questList = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    getTeamList: function getTeamList() {
+      var _this3 = this;
+
+      axios.get('/api/team/list').then(function (res) {
+        _this3.teamList = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    },
+    handleQuestClick: function handleQuestClick(index) {
+      this.selectedQuestIndex = index;
+      this.selectedTeamIndex = 0;
+    },
+    getQuestReview: function getQuestReview() {
+      var _this4 = this;
+
+      var findIndex = this.questList[this.selectedQuestIndex].quest_log.findIndex(function (element) {
+        return element.team_id === _this4.selectedTeamIndex + 1;
+      });
+      if (findIndex >= 0) this.reviewResult = "已通過";else this.reviewResult = "未通過";
+    },
+    sendComplete: function sendComplete() {
+      var _this5 = this;
+
+      axios.post('/api/quest/review', {
+        'team_id': this.teamList[this.selectedTeamIndex].id,
+        'quest_id': this.questList[this.selectedQuestIndex].id
+      }).then(function (res) {
+        var statusCode = res.data.status;
+        if (statusCode === 200) _this5.reviewResult = "已通過";
+
+        _this5.getNpcQuestList(_this5.npc_id);
+      });
+    }
+  },
+  mounted: function mounted() {
+    var user_id = this.$store.state.user.id;
+    if (user_id) this.getNpcId(user_id);
+    this.getTeamList(); // this.getQuestReview(this.selectedTeamIndex);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/TeamComponent.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/TeamComponent.vue?vue&type=script&lang=js& ***!
@@ -2274,6 +2412,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
@@ -2284,6 +2423,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     userName: function userName() {
       return this.$store.state.user.name;
+    },
+    userType: function userType() {
+      return this.$store.state.user.type;
     }
   },
   methods: {
@@ -6800,6 +6942,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, ".list-group[data-v-7e9032b2] {\n  flex-direction: row;\n}\n.list-group .list-group-item[data-v-7e9032b2] {\n  margin-bottom: 0px;\n}\n.quest-container[data-v-7e9032b2] {\n  z-index: 99;\n}\n.menu[data-v-7e9032b2] {\n  width: 30%;\n  height: 100%;\n}\n.info[data-v-7e9032b2] {\n  width: 65%;\n  height: 100%;\n  margin-left: auto;\n}\n.container[data-v-7e9032b2] {\n  display: flex;\n  height: 400px;\n}\n.item .active[data-v-7e9032b2] {\n  color: #fff;\n  background-color: #3097d1;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/QuestReviewComponent.vue?vue&type=style&index=0&id=aa529f0c&lang=scss&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/lib/loader.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/QuestReviewComponent.vue?vue&type=style&index=0&id=aa529f0c&lang=scss&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".menu[data-v-aa529f0c] {\n  width: 30%;\n  height: 100%;\n}\n.info[data-v-aa529f0c] {\n  width: 65%;\n  height: 100%;\n  margin-left: auto;\n}\n.container[data-v-aa529f0c] {\n  display: flex;\n  height: 400px;\n}\n.item .active[data-v-aa529f0c] {\n  color: #fff;\n  background-color: #3097d1;\n}", ""]);
 
 // exports
 
@@ -48846,6 +49007,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/QuestReviewComponent.vue?vue&type=style&index=0&id=aa529f0c&lang=scss&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/lib/loader.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/QuestReviewComponent.vue?vue&type=style&index=0&id=aa529f0c&lang=scss&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/lib/loader.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./QuestReviewComponent.vue?vue&type=style&index=0&id=aa529f0c&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/QuestReviewComponent.vue?vue&type=style&index=0&id=aa529f0c&lang=scss&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/TeamComponent.vue?vue&type=style&index=0&id=12c3fa79&lang=scss&scoped=true&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/lib/loader.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/TeamComponent.vue?vue&type=style&index=0&id=12c3fa79&lang=scss&scoped=true& ***!
@@ -49916,6 +50107,122 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/QuestReviewComponent.vue?vue&type=template&id=aa529f0c&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/QuestReviewComponent.vue?vue&type=template&id=aa529f0c&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "menu" }, [
+      _c("span", [_vm._v("負責任務")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "border border-primary" }, [
+        _c(
+          "ul",
+          { staticClass: "item" },
+          _vm._l(_vm.questList, function(quest, index) {
+            return _c(
+              "li",
+              {
+                key: quest.name,
+                class: { active: _vm.selectedQuestIndex === index },
+                on: {
+                  click: function($event) {
+                    return _vm.handleQuestClick(index)
+                  }
+                }
+              },
+              [_vm._v(_vm._s(quest.name))]
+            )
+          }),
+          0
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "info border border-primary" }, [
+      _vm.selectedQuestIndex >= 0
+        ? _c("div", [
+            _c("span", [_vm._v("選擇隊伍:")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedTeamIndex,
+                    expression: "selectedTeamIndex"
+                  }
+                ],
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedTeamIndex = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              _vm._l(_vm.teamList, function(team, index) {
+                return _c(
+                  "option",
+                  { key: team.name, domProps: { value: index } },
+                  [_vm._v("第 " + _vm._s(team.id) + " 小隊")]
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("div", [
+              _c("div", [_vm._v(_vm._s(_vm.reviewResult))]),
+              _vm._v(" "),
+              _vm.reviewResult === "未通過"
+                ? _c("div", [
+                    _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.sendComplete()
+                          }
+                        }
+                      },
+                      [_vm._v("通關")]
+                    )
+                  ])
+                : _vm._e()
+            ])
+          ])
+        : _vm._e()
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/TeamComponent.vue?vue&type=template&id=12c3fa79&scoped=true&":
 /*!***********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/TeamComponent.vue?vue&type=template&id=12c3fa79&scoped=true& ***!
@@ -50070,23 +50377,38 @@ var render = function() {
                           attrs: { "aria-labelledby": "navbarDropdownMenuLink" }
                         },
                         [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "dropdown-item",
-                              attrs: { to: "/quest" }
-                            },
-                            [_vm._v("任務資訊")]
-                          ),
+                          _vm.userType === "normal"
+                            ? _c(
+                                "router-link",
+                                {
+                                  staticClass: "dropdown-item",
+                                  attrs: { to: "/quest" }
+                                },
+                                [_vm._v("任務資訊")]
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "dropdown-item",
-                              attrs: { to: "/item" }
-                            },
-                            [_vm._v("持有物品")]
-                          ),
+                          _vm.userType === "normal"
+                            ? _c(
+                                "router-link",
+                                {
+                                  staticClass: "dropdown-item",
+                                  attrs: { to: "/item" }
+                                },
+                                [_vm._v("持有物品")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.userType === "worker"
+                            ? _c(
+                                "router-link",
+                                {
+                                  staticClass: "dropdown-item",
+                                  attrs: { to: "/questReview" }
+                                },
+                                [_vm._v("審核任務")]
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
                           _c(
                             "a",
@@ -66532,6 +66854,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/QuestReviewComponent.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/assets/js/components/QuestReviewComponent.vue ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _QuestReviewComponent_vue_vue_type_template_id_aa529f0c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./QuestReviewComponent.vue?vue&type=template&id=aa529f0c&scoped=true& */ "./resources/assets/js/components/QuestReviewComponent.vue?vue&type=template&id=aa529f0c&scoped=true&");
+/* harmony import */ var _QuestReviewComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./QuestReviewComponent.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/QuestReviewComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _QuestReviewComponent_vue_vue_type_style_index_0_id_aa529f0c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./QuestReviewComponent.vue?vue&type=style&index=0&id=aa529f0c&lang=scss&scoped=true& */ "./resources/assets/js/components/QuestReviewComponent.vue?vue&type=style&index=0&id=aa529f0c&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _QuestReviewComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _QuestReviewComponent_vue_vue_type_template_id_aa529f0c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _QuestReviewComponent_vue_vue_type_template_id_aa529f0c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "aa529f0c",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/js/components/QuestReviewComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/QuestReviewComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/assets/js/components/QuestReviewComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_QuestReviewComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./QuestReviewComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/QuestReviewComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_QuestReviewComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/QuestReviewComponent.vue?vue&type=style&index=0&id=aa529f0c&lang=scss&scoped=true&":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/assets/js/components/QuestReviewComponent.vue?vue&type=style&index=0&id=aa529f0c&lang=scss&scoped=true& ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_lib_loader_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_QuestReviewComponent_vue_vue_type_style_index_0_id_aa529f0c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/sass-loader/lib/loader.js??ref--7-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./QuestReviewComponent.vue?vue&type=style&index=0&id=aa529f0c&lang=scss&scoped=true& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/lib/loader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/QuestReviewComponent.vue?vue&type=style&index=0&id=aa529f0c&lang=scss&scoped=true&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_lib_loader_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_QuestReviewComponent_vue_vue_type_style_index_0_id_aa529f0c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_lib_loader_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_QuestReviewComponent_vue_vue_type_style_index_0_id_aa529f0c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_lib_loader_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_QuestReviewComponent_vue_vue_type_style_index_0_id_aa529f0c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_lib_loader_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_QuestReviewComponent_vue_vue_type_style_index_0_id_aa529f0c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_lib_loader_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_QuestReviewComponent_vue_vue_type_style_index_0_id_aa529f0c_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/QuestReviewComponent.vue?vue&type=template&id=aa529f0c&scoped=true&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/assets/js/components/QuestReviewComponent.vue?vue&type=template&id=aa529f0c&scoped=true& ***!
+  \************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_QuestReviewComponent_vue_vue_type_template_id_aa529f0c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./QuestReviewComponent.vue?vue&type=template&id=aa529f0c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/QuestReviewComponent.vue?vue&type=template&id=aa529f0c&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_QuestReviewComponent_vue_vue_type_template_id_aa529f0c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_QuestReviewComponent_vue_vue_type_template_id_aa529f0c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/components/TeamComponent.vue":
 /*!**********************************************************!*\
   !*** ./resources/assets/js/components/TeamComponent.vue ***!
@@ -66703,6 +67112,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_TeamComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/TeamComponent.vue */ "./resources/assets/js/components/TeamComponent.vue");
 /* harmony import */ var _components_QuestComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/QuestComponent.vue */ "./resources/assets/js/components/QuestComponent.vue");
 /* harmony import */ var _components_ItemComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/ItemComponent.vue */ "./resources/assets/js/components/ItemComponent.vue");
+/* harmony import */ var _components_QuestReviewComponent_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/QuestReviewComponent.vue */ "./resources/assets/js/components/QuestReviewComponent.vue");
+
 
 
 
@@ -66724,6 +67135,9 @@ var routes = [{
 }, {
   path: '/item',
   component: _components_ItemComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+}, {
+  path: '/questReview',
+  component: _components_QuestReviewComponent_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
   path: '*',
   component: _components_ErrorComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"]

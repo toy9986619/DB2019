@@ -36,8 +36,9 @@
               aria-expanded="false"
             >{{userName}}</a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-              <router-link to="/quest" class="dropdown-item">任務資訊</router-link>
-              <router-link to="/item" class="dropdown-item">持有物品</router-link>
+              <router-link to="/quest" v-if="userType === 'normal'" class="dropdown-item">任務資訊</router-link>
+              <router-link to="/item" v-if="userType === 'normal'" class="dropdown-item">持有物品</router-link>
+              <router-link to="/questReview" v-if="userType === 'worker'" class="dropdown-item">審核任務</router-link>
               <a href="/#" class="dropdown-item" @click.stop.prevent="logout()">Logout</a>
             </div>
           </li>
@@ -60,6 +61,10 @@ export default {
 
     userName() {
       return this.$store.state.user.name;
+    },
+
+    userType() {
+      return this.$store.state.user.type;
     }
   },
 

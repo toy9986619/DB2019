@@ -4,6 +4,7 @@ import LoginComponent from './components/LoginComponent.vue';
 import TeamComponent from './components/TeamComponent.vue';
 import QuestComponent from './components/QuestComponent.vue';
 import ItemComponent from './components/ItemComponent.vue';
+import QuestReviewComponent from './components/QuestReviewComponent.vue';
 
 const routes = [
   {
@@ -25,6 +26,10 @@ const routes = [
   {
     path: '/item',
     component: ItemComponent
+  },
+  {
+    path: '/questReview',
+    component: QuestReviewComponent
   },
   {
     path: '*',

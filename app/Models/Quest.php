@@ -70,4 +70,8 @@ class Quest extends Model
     function npc() {
         return $this->hasOne('App\Models\NPC', 'id', 'npc_id');
     }
+
+    function questLog() {
+        return $this->hasMany('App\Models\QuestLog', 'quest_id', 'id');
+    }
 }

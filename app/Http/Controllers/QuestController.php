@@ -52,5 +52,25 @@ class QuestController extends Controller
             'team_id' => $teamId,
             'quest_id' => $questId
         ]);
+
+        // return response()->json(['status' => 200, 'message'=> 'ok']);
+        return redirect()->action('ItemController@insertItemLog', [
+            'quest_id' => $questId,
+            'team_id' => $teamId
+        ]);
+
+        // return redirect()->route('itemInsert', [
+        //     'quest_id' => $questId,
+        //     'team_id' => $teamId
+        // ]);
     }
+
+    public function getQuestListByNpc($npc_id){
+        return Quest::where('npc_id', '=', $npc_id)->with('questLog')->get();
+    }
+
+    // public function getQuestLogByQuestId($quest_id){
+    //     return Quest::where('id', '=', $quest_id)->with('questLog')->get();
+    //     // return QuestLog::where('quest_id', '=', $quest_id)->get();
+    // }
 }
