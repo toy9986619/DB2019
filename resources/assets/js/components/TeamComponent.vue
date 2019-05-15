@@ -1,7 +1,8 @@
 <template>
   <div class="container">
-    <div class="team">
-      <span class="team-title">第一小隊</span>
+    <div v-for="(item, index) in team" :key="item.name" class="team">
+      <p>第 {{index+1}} 小隊</p>
+      <p class="team-title">{{item.name}}</p>
       <table class="table table-sm table-bordered">
         <thead>
           <tr>
@@ -10,35 +11,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">隊輔</th>
-            <td>王小明</td>
-          </tr>
-          <tr>
-            <th scope="row">隊員</th>
-            <td>陳美華</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="team">
-      <span class="team-title">第二小隊</span>
-      <table class="table table-sm table-bordered">
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">姓名</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">隊輔</th>
-            <td>王小明</td>
-          </tr>
-          <tr>
-            <th scope="row">隊員</th>
-            <td>陳美華</td>
+          <tr v-for="member in item.member" :key="member.name">
+            <th scope="row">{{getMemberType(member.type)}}</th>
+            <td>{{member.name}}</td>
           </tr>
         </tbody>
       </table>
@@ -48,8 +23,33 @@
 
 <script>
 export default {
-  
-}
+  data() {
+    return {
+      team: {}
+    };
+  },
+
+  methods: {
+    getTeam() {
+      axios
+        .get("/api/team")
+        .then(res => {
+          this.team = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
+    getMemberType(type) {
+      return type === 'worker' ? '隊輔' : '隊員';
+    }
+  },
+
+  mounted() {
+    this.getTeam();
+  }
+};
 </script>
 
 <style lang="scss" scoped>

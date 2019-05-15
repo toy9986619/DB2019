@@ -1,4 +1,4 @@
-import ExampleComponent from './components/ExampleComponent.vue';
+import IndexComponent from './components/IndexComponent.vue';
 import ErrorComponent from './components/ErrorComponent.vue';
 import LoginComponent from './components/LoginComponent.vue';
 import TeamComponent from './components/TeamComponent.vue';
@@ -8,7 +8,7 @@ import ItemComponent from './components/ItemComponent.vue';
 const routes = [
   {
     path: '/',
-    component: ExampleComponent
+    component: IndexComponent
   },
   {
     path: '/login',

@@ -9,7 +9,7 @@ class TeamMember extends Model
     protected $table = 'team_members';
 
     protected $fillable = [
-        'team_id', 'user_id'
+        'team_id', 'user_id', 'type'
     ];
 
     /**

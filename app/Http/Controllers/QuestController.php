@@ -41,6 +41,16 @@ class QuestController extends Controller
     }
 
     public function getQuestInfo($questId){
-        return Quest::find($questId);
+        return Quest::with('npc')->find($questId);
+    }
+
+    public function insertQuestLog(Request $request){
+        $questId = $request->input('quest_id');
+        $teamId = $request->input('team_id');
+
+        $log = QuestLog::firstOrCreate([
+            'team_id' => $teamId,
+            'quest_id' => $questId
+        ]);
     }
 }

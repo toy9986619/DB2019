@@ -17,4 +17,15 @@ class ItemController extends Controller
     public function getItemInfo($itemId){
         return Item::find($itemId);
     }
+
+    public function insertItemLog(Request $request){
+        $teamId = $request->input('team_id');
+        $itemId = $request->input('item_id');
+
+        $log = ItemLog::firstOrCreate([
+            'team_id' => $teamId,
+            'item_id' => $itemId,
+            'status' => 1
+        ]);
+    }
 }

@@ -67,7 +67,7 @@ class Quest extends Model
      *
      * @return App\Models\NPC
      */
-    function NPC() {
-        return $this->hasOne('App\Models\NPC', 'npc_id', 'id');
+    function npc() {
+        return $this->hasOne('App\Models\NPC', 'id', 'npc_id');
     }
 }

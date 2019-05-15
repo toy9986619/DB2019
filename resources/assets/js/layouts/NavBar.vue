@@ -34,7 +34,7 @@
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-            >Username</a>
+            >{{userName}}</a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
               <router-link to="/quest" class="dropdown-item">任務資訊</router-link>
               <router-link to="/item" class="dropdown-item">持有物品</router-link>
@@ -51,6 +51,16 @@
 export default {
   data() {
     return {};
+  },
+
+  computed: {
+    isLogin() {
+      return this.$store.state.isLogin;
+    },
+
+    userName() {
+      return this.$store.state.user.name;
+    }
   },
 
   methods: {
@@ -86,12 +96,6 @@ export default {
 
   mounted() {
     this.checkLoginState();
-  },
-
-  computed: {
-    isLogin() {
-      return this.$store.state.isLogin;
-    }
   }
 };
 </script>

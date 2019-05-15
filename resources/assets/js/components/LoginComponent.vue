@@ -79,8 +79,8 @@
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       errors: {}
     };
   },
@@ -88,13 +88,13 @@ export default {
   methods: {
     submit() {
       axios
-        .post("/login", {
+        .post('/login', {
           email: this.email,
           password: this.password
         })
         .then(res => {
           this.$store.commit('login', res.data.user);
-          this.$router.push("/");
+          this.$router.push('/');
         })
         .catch(error => {
           if (error.response.status === 422) {
@@ -103,7 +103,7 @@ export default {
             console.log(error);
           }
 
-          this.password = "";
+          this.password = '';
         });
     }
   },

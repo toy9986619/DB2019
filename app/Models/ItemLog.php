@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ItemLog extends Model
 {
     protected $table = 'log_items';
-    protected $fillable = ['team_id', 'item_id'];
+    protected $fillable = ['team_id', 'item_id', 'status'];
 
     /**
      * 屬於 哪個隊伍 關聯

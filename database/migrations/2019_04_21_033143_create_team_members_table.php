@@ -16,6 +16,7 @@ class CreateTeamMembersTable extends Migration
         Schema::create('team_members', function (Blueprint $table) {
             $table->integer('team_id')->unsigned()->comment('隊伍編號');
             $table->integer('user_id')->unsigned()->comment('成員編號');
+            $table->string('type')->comment('身份類型');
             $table->timestamps();
 
             $table->primary(['team_id', 'user_id']);

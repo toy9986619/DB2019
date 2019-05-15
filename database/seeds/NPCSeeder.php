@@ -13,19 +13,19 @@ class NPCSeeder extends Seeder
     {
         DB::transaction(function () {
             App\Models\NPC::create([
-                'user_id' => 1,
+                'user_id' => 35,
                 'name' => '托尼·史坦克'
             ]);
             App\Models\NPC::create([
-                'user_id' => 2,
+                'user_id' => 36,
                 'name' => '奇藝博士'
             ]);
             App\Models\NPC::create([
-                'user_id' => 3,
+                'user_id' => 37,
                 'name' => '雷神索爾'
             ]);
             App\Models\NPC::create([
-                'user_id' => 4,
+                'user_id' => 38,
                 'name' => '鎂國隊長'
             ]);
         });

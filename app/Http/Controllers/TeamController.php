@@ -7,5 +7,7 @@ use App\Models\Team;
 
 class TeamController extends Controller
 {
-    //
+    public function getAllTeamWithMember(){
+        return Team::with('Member:name,id,users.type')->get();
+    }
 }

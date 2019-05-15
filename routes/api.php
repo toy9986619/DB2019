@@ -24,6 +24,4 @@ Route::get('/quest/info/{id}', 'QuestController@getQuestInfo');
 Route::get('/item/item-list', 'ItemController@getItemList');
 Route::get('/item/info/{id}', 'ItemController@getItemInfo');
 
-Route::get('/team/{id}', function(){
-    return App\Models\Team::with('Member')->find(1);
-});
+Route::get('/team', 'TeamController@getAllTeamWithMember');
